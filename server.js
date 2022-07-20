@@ -12,7 +12,8 @@ app.use(`/`, authRoutes);
 
 //IMPORT MONGOOSE-----------------------------------------------------------------
 const mongoose = require("mongoose"); //import mongoose
-const url = `mongodb://localhost:27017/getTechie`;
+// const url = `mongodb://localhost:27017/getTechie`;
+const url = `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_CLUSTER_PASSWORD}@gettechiecluster.ctmrvus.mongodb.net/?retryWrites=true&w=majority`;
 // connect to mongoose
 
 mongoose.connect(url, function (err) { 
@@ -25,7 +26,7 @@ mongoose.connect(url, function (err) {
 // -----------------------------------------------------------------
 
 
-const port = 3000 || process.env.PORT
+const port =process.env.PORT || 3000
 app.listen(port,()=>{
     console.log(`server is listening at ${port}`)
 })
