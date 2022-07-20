@@ -1,4 +1,4 @@
-// @ts-check
+
 const Model = require("../models/userSchema");
 const Token = require("../models/token");
 const validator = require("validator");
@@ -33,12 +33,12 @@ module.exports.forgetPassword_post = async (req, res) => {
         if (checkTokenEmail) {
           await Token.updateOne({ emailAddress }, { token });
 
-          // sendEmail({
-          //   subject: `Token verification for password reset`,
-          //   text: `Your token numeber is ${token}`,
-          //   to: process.env.SECOND_EMAIL,
-          //   from: process.env.EMAIL,
-          // });
+          sendEmail({
+            subject: `Token verification for password reset`,
+            text: `Your token numeber is ${token}`,
+            to: emailAddress,
+            from: process.env.EMAIL,
+          });
 
           return res.json({
             successful: true,
@@ -47,12 +47,12 @@ module.exports.forgetPassword_post = async (req, res) => {
         } else {
           const newToken = await new Token({ emailAddress, token }).save();
 
-          // sendEmail({
-          //   subject: `Token verification for password reset`,
-          //   text: `Your token numeber is ${token}`,
-          //   to: process.env.SECOND_EMAIL,
-          //   from: process.env.EMAIL,
-          // });
+          sendEmail({
+            subject: `Token verification for password reset`,
+            text: `Your token numeber is ${token}`,
+            to: emailAddress,
+            from: process.env.EMAIL,
+          });
 
           return res.json({
             successful: true,
